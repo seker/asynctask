@@ -1,0 +1,43 @@
+// https://www.tqwba.com/x_d/jishu/197293.html
+
+apply plugin: 'maven-publish'
+
+group 'seker'
+version '1.0.0'
+
+publishing {
+    publications {
+        seker(MavenPublication) {
+            artifact source: "build/libs/${project.name}-${version}.jar"
+            pom.withXml{
+                def dependenciesNode = asNode().appendNode("dependencies")
+                configurations.implementation.allDependencies.forEach(){
+                    Dependency dependency ->
+                        if (dependency.version != "unspecified" && dependency.name != "unspecified"){
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', dependency.group)
+                            dependencyNode.appendNode('artifactId', dependency.name)
+                            dependencyNode.appendNode('version', dependency.version)
+                        }
+                }
+            }
+        }
+    }
+
+    repositories {
+//        mavenLocal()
+        maven {
+            name = 'curRepo'
+            url = "file://${rootDir}/repo"
+        }
+    }
+}
+
+//编译发布到maven
+task deploy{
+    dependsOn tasks.clean
+    dependsOn tasks.build
+    dependsOn tasks.publish
+
+    tasks.generatePomFileForSekerPublication.mustRunAfter(tasks.build)
+}

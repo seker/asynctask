@@ -1,0 +1,4 @@
+rootProject.name = 'asynctask_root'
+include ':asynctask'
+include ':asynctask-android'
+include ':asynctask-android-app'
