@@ -11,7 +11,7 @@ import java.util.concurrent.Callable;
  */
 public class ActiveTaskQueue extends TaskQueue {
 
-    protected Callable<?> idleCallback;
+    protected Runnable idleCallback;
 
     protected boolean running = false;
     protected Task runningTask = null;
@@ -20,7 +20,7 @@ public class ActiveTaskQueue extends TaskQueue {
         super(name, priority);
     }
 
-    public void setIdleCallback(Callable<?> idleCallback) {
+    public void setIdleCallback(Runnable idleCallback) {
         this.idleCallback = idleCallback;
     }
 
@@ -50,7 +50,7 @@ public class ActiveTaskQueue extends TaskQueue {
                     Log.v(TAG, "null == idleCallback");
                 } else {
                     try {
-                        idleCallback.call();
+                        idleCallback.run();
                     } catch (Throwable e) {
                         Log.d(TAG, e);
                     }
