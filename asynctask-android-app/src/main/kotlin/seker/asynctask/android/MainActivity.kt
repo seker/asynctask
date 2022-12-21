@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import seker.asynctask.android.databinding.ActivityMainBinding
-import seker.asynctask.android.logger.AndroidInnerLogger
+import seker.asynctask.android.logger.AndroidLogger
 import seker.asynctask.logger.Log
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.setLogger(AndroidInnerLogger())
+        Log.setLogger(AndroidLogger())
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

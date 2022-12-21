@@ -4,7 +4,7 @@ import android.util.Log
 
 import seker.asynctask.logger.Logger
 
-class AndroidInnerLogger : Logger() {
+class AndroidLogger : Logger() {
 
     override fun println(priority: Int, tag: String?, msg: String?): Int {
         val currentThread = Thread.currentThread()

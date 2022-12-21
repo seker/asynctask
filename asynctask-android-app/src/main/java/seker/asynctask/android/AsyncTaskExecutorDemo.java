@@ -8,7 +8,7 @@ public class AsyncTaskExecutorDemo {
 
     public void demo() {
         AsyncTaskExecutorKt.runOnMainThread(AsyncTaskExecutor.getInstance(), () ->{
-            Log.d("AsyncTaskExecutorKt.runOnMainThread)");
+            Log.d("AsyncTaskExecutorKt.runOnMainThread()");
         });
     }
 }
