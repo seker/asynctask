@@ -1,5 +1,6 @@
 package seker.asynctask;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seker.asynctask.logger.Log;
 
@@ -11,6 +12,11 @@ import java.util.concurrent.PriorityBlockingQueue;
  * @since 2022.11.05
  */
 public class PriorityBlockingQueueTest {
+
+    @BeforeAll
+    public static void init() {
+        Log.setLogger(new ConsoleLogger());
+    }
 
     @Test
     public void test1() {

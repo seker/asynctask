@@ -1,5 +1,6 @@
 package seker.asynctask;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seker.asynctask.logger.Log;
 
@@ -7,6 +8,11 @@ import seker.asynctask.logger.Log;
  * @author xinjian
  */
 public class AsyncTaskExecutorTest {
+
+    @BeforeAll
+    public static void init() {
+        Log.setLogger(new ConsoleLogger());
+    }
 
     @Test
     void test1() {

@@ -1,5 +1,6 @@
 package seker.asynctask;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seker.asynctask.logger.Log;
 
@@ -9,6 +10,11 @@ import java.util.concurrent.TimeUnit;
  * @author xinjian
  */
 public class PassiveTaskQueueTest {
+
+    @BeforeAll
+    public static void init() {
+        Log.setLogger(new ConsoleLogger());
+    }
 
     @Test
     void test1() {

@@ -1,15 +1,17 @@
-package seker.asynctask.logger;
+package seker.asynctask;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import seker.asynctask.logger.Logger;
+
 /**
  * @author xinjian
  */
-class InnerLogger extends Logger {
-    private static final char[] PRIORITIES = new char[]{'v', 'd', 'i', 'w', 'e', 'f'};
+class ConsoleLogger extends Logger {
+    private static final char[] PRIORITIES = new char[]{'V', 'D', 'I', 'W', 'E', 'F'};
     private final DateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS", Locale.US);
 
     @Override
@@ -19,12 +21,12 @@ class InnerLogger extends Logger {
         buf
                 .append(sDateFormat.format(new Date()))
                 .append(" [")
+                .append(PRIORITIES[priority - VERBOSE])
+                .append("][")
                 .append(currentThread.getId())
                 .append("|")
                 .append(currentThread.getName())
-                .append("] [")
-                .append(PRIORITIES[priority - VERBOSE])
-                .append("] [")
+                .append("][")
                 .append(tag)
                 .append("] : ");
         if (null != msg && msg.length() > 0) {

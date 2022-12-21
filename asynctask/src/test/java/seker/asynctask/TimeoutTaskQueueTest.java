@@ -1,5 +1,6 @@
 package seker.asynctask;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seker.asynctask.logger.Log;
 
@@ -10,6 +11,12 @@ import java.util.concurrent.TimeUnit;
  * @since 2022.11.05
  */
 public class TimeoutTaskQueueTest {
+
+    @BeforeAll
+    public static void init() {
+        Log.setLogger(new ConsoleLogger());
+    }
+
     @Test
     void test1() {
         TimeoutTaskQueue timeoutTaskQueue = new TimeoutTaskQueue("testTimeoutTaskQueue", true);
