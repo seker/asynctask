@@ -130,7 +130,6 @@ public final class AsyncTaskExecutor {
             throw new IllegalArgumentException("The parameter 'threadName' can't be empty.");
         }
         Task task = TaskPool.INSTANCE.obtain(runnable, threadName);
-        task.autoFree = false;
         ScheduledFuture<?> scheduledFuture = SCHEDULED_THREAD_POOL_EXECUTOR.schedule(task, delay, unit);
         return ScheduledFutureHandler.getProxyObject(scheduledFuture, task);
     }
