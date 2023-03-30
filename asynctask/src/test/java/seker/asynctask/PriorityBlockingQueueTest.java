@@ -49,7 +49,7 @@ public class PriorityBlockingQueueTest {
     private void dumpPriorityBlockingQueue(PriorityBlockingQueue<Integer> priorityBlockingQueue) {
         StringBuilder buf = new StringBuilder();
         while (!priorityBlockingQueue.isEmpty()) {
-            buf.append("," + priorityBlockingQueue.poll());
+            buf.append(",").append(priorityBlockingQueue.poll());
         }
         Log.d(buf.toString());
     }

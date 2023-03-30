@@ -67,7 +67,11 @@ final class Task implements Runnable, Pool.Poolable {
         }
         long start = System.currentTimeMillis();
         try {
-            runnable.run();
+            if (null == runnable) {
+                Log.e(TAG, "null == runnable");
+            } else {
+                runnable.run();
+            }
         } catch (Throwable e) {
             Log.w(TAG, e);
         } finally {
