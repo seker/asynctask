@@ -1,4 +1,4 @@
-package seker.asynctask;
+package seker.asynctask.test;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import seker.asynctask.AsyncTaskExecutor;
+import seker.asynctask.ConsoleLogger;
 import seker.asynctask.logger.Log;
 
 /**
@@ -22,11 +24,11 @@ public class TaskPoolTest {
     void test1() {
         ScheduledFuture<?> scheduledFuture = null;
         for (int i = 0; i < 1000; i += 5) {
-            scheduledFuture = AsyncTaskExecutor.INSTANCE.scheduleAtFixedRate(new Runnable() {
+            scheduledFuture = AsyncTaskExecutor.getInstance().scheduleAtFixedRate(new Runnable() {
                 @Override
                 public void run() {
                     for (int i = 0; i < 1000; i += 1) {
-                        AsyncTaskExecutor.INSTANCE.executeDelay(new Runnable() {
+                        AsyncTaskExecutor.getInstance().executeDelay(new Runnable() {
                             @Override
                             public void run() {
 //                            Log.d("");

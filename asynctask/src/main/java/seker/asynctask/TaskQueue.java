@@ -19,15 +19,21 @@ public abstract class TaskQueue implements Comparator<Task> {
     static String TAG = AsyncTaskExecutor.TAG;
 
     /**
+     * 除非构建TaskQueue时，没有指定name，才会使用到此属性。
+     * 该值递增，并应用到name上
      */
     private static final AtomicInteger counter = new AtomicInteger(0);
 
     /**
+     * 注意：是线程安全的
      */
     final PriorityBlockingQueue<Task> priorityQueue = new PriorityBlockingQueue<>(TaskPool.INITIAL_CAPACITY, this);
     private final Executor executor = AsyncTaskExecutor.THREAD_POOL_EXECUTOR;
     private final String name;
 
+    /**
+     * 是否支持根据Task的 priority 属性值进行排序
+     */
     private final boolean priority;
 
     public TaskQueue(String name, boolean priority) {
@@ -69,22 +75,29 @@ public abstract class TaskQueue implements Comparator<Task> {
     }
 
     void addTask(final Task task) {
-        synchronized (priorityQueue) {
-            task.offeredTime = System.nanoTime();
-        }
+        task.offeredTime = System.nanoTime();
         priorityQueue.offer(task);
     }
 
-    public void executeNext() {
+    /**
+     * 执行下一个Task
+     *
+     * @return  true/false
+     */
+    public boolean executeNext() {
+        boolean ret;
         Task task = priorityQueue.poll();
         if (null == task) {
+            ret = false;
             Log.v(TAG, "priorityQueue.poll() == null");
         } else {
+            ret = true;
             doExecute(task);
         }
+        return ret;
     }
 
-    void doExecute(Task task) {
+    protected void doExecute(Task task) {
 //        Log.v(TAG, "doExecute() : task=" + task.threadNameSuffix);
         executor.execute(task);
     }

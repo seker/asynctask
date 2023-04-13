@@ -10,7 +10,7 @@ import seker.asynctask.logger.Logger;
 /**
  * @author xinjian
  */
-class ConsoleLogger extends Logger {
+public class ConsoleLogger extends Logger {
     private static final char[] PRIORITIES = new char[]{'V', 'D', 'I', 'W', 'E', 'F'};
     private final DateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS", Locale.US);
 

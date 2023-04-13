@@ -31,11 +31,11 @@ public class TimeoutTaskQueue extends ActiveTaskQueue {
     }
 
     @Override
-    void doExecute(Task runnable) {
+    protected void doExecute(Task runnable) {
         synchronized (TimeoutTaskQueue.class) {
             if (null != timeoutMonitorFuture) {
                 timeoutMonitorFuture.cancel(true);
-                 Log.d(TAG, "not time out : " + timeoutMonitorTask.targetTask.threadNameSuffix + ", cancel the TimeoutTask.");
+                 Log.d(TAG, "not time out : [" + timeoutMonitorTask.targetTask.threadNameSuffix + "], cancel the TimeoutMonitorTask.");
             }
             timeoutMonitorTask.setTargetTask(runnable);
             timeoutMonitorFuture = AsyncTaskExecutor.SCHEDULED_THREAD_POOL_EXECUTOR.schedule(

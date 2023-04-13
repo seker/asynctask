@@ -53,10 +53,6 @@ public final class AsyncTaskExecutor {
 
     /**
      */
-    final static AsyncTaskExecutor INSTANCE = new AsyncTaskExecutor();
-
-    /**
-     */
     private final ConcurrentHashMap<String, ActiveTaskQueue> activeTaskQueues = new ConcurrentHashMap<>();
     /**
      */
@@ -66,14 +62,21 @@ public final class AsyncTaskExecutor {
      */
     private AsyncTaskExecutor() {
         activeTaskQueue = new ActiveTaskQueue(ACTIVE_TASK_QUEUE, true);
-        activeTaskQueue.start();
+        activeTaskQueue.running = true;
+    }
+
+    private static final class InstanceHolder {
+        /**
+         *
+         */
+        static final AsyncTaskExecutor INSTANCE = new AsyncTaskExecutor();
     }
 
     /**
      * @return AsyncTaskExecutor
      */
     public static AsyncTaskExecutor getInstance() {
-        return INSTANCE;
+        return InstanceHolder.INSTANCE;
     }
 
     /**
@@ -106,8 +109,8 @@ public final class AsyncTaskExecutor {
             ActiveTaskQueue queue = activeTaskQueues.get(taskQueue);
             if (null == queue) {
                 queue = new ActiveTaskQueue(taskQueue, true);
-                queue.start();
                 activeTaskQueues.put(taskQueue, queue);
+                queue.running = true;
             }
             queue.addTask(runnable, threadName, priority);
         }

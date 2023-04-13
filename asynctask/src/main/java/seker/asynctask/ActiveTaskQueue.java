@@ -41,7 +41,8 @@ public class ActiveTaskQueue extends TaskQueue {
         }
     }
 
-    public void executeNext() {
+    public boolean executeNext() {
+        boolean ret = false;
         if (running) {
             runningTask = priorityQueue.poll();
             if (null == runningTask) {
@@ -56,9 +57,11 @@ public class ActiveTaskQueue extends TaskQueue {
                     }
                 }
             } else {
+                ret = true;
                 doExecute(runningTask);
             }
         }
+        return ret;
     }
 
     public void stop() {

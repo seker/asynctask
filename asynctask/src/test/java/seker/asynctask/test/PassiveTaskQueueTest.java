@@ -1,7 +1,10 @@
-package seker.asynctask;
+package seker.asynctask.test;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import seker.asynctask.ConsoleLogger;
+import seker.asynctask.PassiveTaskQueue;
 import seker.asynctask.logger.Log;
 
 import java.util.concurrent.TimeUnit;
@@ -18,7 +21,7 @@ public class PassiveTaskQueueTest {
 
     @Test
     void test1() {
-        PassiveTaskQueue passiveTaskQueue = new PassiveTaskQueue("testPassiveTaskQueue", true);
+        PassiveTaskQueue passiveTaskQueue = new PassiveTaskQueue("testPassiveTaskQueue", false);
 
 //        passiveTaskQueue.executeNext();
 

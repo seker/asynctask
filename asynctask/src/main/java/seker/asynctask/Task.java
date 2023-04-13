@@ -39,6 +39,10 @@ final class Task implements Runnable, Pool.Poolable {
     ActiveTaskQueue taskQueue;
 
     /**
+     * 该Task加入到TaskQueue的时间值（纳秒）
+     * Task在TaskQueue的排队策略
+     *  1、比较priority
+     *  2、比较offeredTime
      */
     long offeredTime = 0;
 

@@ -1,7 +1,11 @@
-package seker.asynctask;
+package seker.asynctask.test;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import seker.asynctask.ConsoleLogger;
+import seker.asynctask.SleepRunnable;
+import seker.asynctask.TimeoutTaskQueue;
 import seker.asynctask.logger.Log;
 
 import java.util.concurrent.TimeUnit;
