@@ -11,9 +11,19 @@ import java.util.concurrent.Callable;
  */
 public class ActiveTaskQueue extends TaskQueue {
 
+    /**
+     * 空闲时的回调
+     */
     protected Runnable idleCallback;
 
+    /**
+     * 是否正在运行中
+     */
     protected boolean running = false;
+
+    /**
+     * 正在运行中的Task
+     */
     protected Task runningTask = null;
 
     public ActiveTaskQueue(String name, boolean priority) {

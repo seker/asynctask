@@ -15,24 +15,24 @@ final class Task implements Runnable, Pool.Poolable {
     private static final String TAG = AsyncTaskExecutor.TAG;
 
     /**
+     * 超过这个值（单位：毫秒），就会打印一下耗时
      */
     private static final int LONG_TIME_COST_WARN = 100;
 
     /**
+     * 真正的执行对象
      */
     private Runnable runnable;
 
     /**
+     * 线程名后缀，由外部传入，方便排查问题用
      */
     String threadNameSuffix;
 
     /**
+     * 用于排序
      */
     int priority = 0;
-
-    /**
-     */
-    boolean autoFree = true;
 
     /**
      */
@@ -51,7 +51,6 @@ final class Task implements Runnable, Pool.Poolable {
         this.threadNameSuffix = threadNameSuffix;
         this.priority = priority;
 
-        autoFree = true;
         taskQueue = null;
         offeredTime = 0;
     }
@@ -92,9 +91,7 @@ final class Task implements Runnable, Pool.Poolable {
                 taskQueue.executeNext();
             }
 
-            if (autoFree) {
-                TaskPool.INSTANCE.free(this);
-            }
+            TaskPool.INSTANCE.free(this);
         }
     }
 }

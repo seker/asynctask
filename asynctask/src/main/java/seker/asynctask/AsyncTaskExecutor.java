@@ -128,37 +128,23 @@ public final class AsyncTaskExecutor {
 
     /**
      */
-    public ScheduledFuture<?> executeDelay(Runnable runnable, String threadName, long delay, TimeUnit unit) {
-        if (TextUtils.isEmpty(threadName)) {
-            throw new IllegalArgumentException("The parameter 'threadName' can't be empty.");
-        }
-        Task task = TaskPool.INSTANCE.obtain(runnable, threadName);
-        ScheduledFuture<?> scheduledFuture = SCHEDULED_THREAD_POOL_EXECUTOR.schedule(task, delay, unit);
-        return ScheduledFutureHandler.getProxyObject(scheduledFuture, task);
+    public ScheduledFuture<?> executeDelay(Runnable runnable, long delay, TimeUnit unit) {
+        ScheduledFuture<?> future = SCHEDULED_THREAD_POOL_EXECUTOR.schedule(runnable, delay, unit);
+        return ScheduledFutureHandler.getProxyObject(future, runnable);
     }
 
     /**
      */
-    public ScheduledFuture<?> scheduleAtFixedRate(Runnable runnable, String threadName, long initialDelay, long period, TimeUnit unit) {
-        if (TextUtils.isEmpty(threadName)) {
-            throw new IllegalArgumentException("The parameter 'threadName' can't be empty.");
-        }
-        Task task = TaskPool.INSTANCE.obtain(runnable, threadName);
-        task.autoFree = false;
-        ScheduledFuture<?> scheduledFuture = SCHEDULED_THREAD_POOL_EXECUTOR.scheduleAtFixedRate(task, initialDelay, period, unit);
-        return ScheduledFutureHandler.getProxyObject(scheduledFuture, task);
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable runnable, long initialDelay, long period, TimeUnit unit) {
+        ScheduledFuture<?> future = SCHEDULED_THREAD_POOL_EXECUTOR.scheduleAtFixedRate(runnable, initialDelay, period, unit);
+        return ScheduledFutureHandler.getProxyObject(future, runnable);
     }
 
     /**
      */
-    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable runnable, String threadName, long initialDelay, long delay, TimeUnit unit) {
-        if (TextUtils.isEmpty(threadName)) {
-            throw new IllegalArgumentException("The parameter 'threadName' can't be empty.");
-        }
-        Task task = TaskPool.INSTANCE.obtain(runnable, threadName);
-        task.autoFree = false;
-        ScheduledFuture<?> scheduledFuture = SCHEDULED_THREAD_POOL_EXECUTOR.scheduleWithFixedDelay(task, initialDelay, delay, unit);
-        return ScheduledFutureHandler.getProxyObject(scheduledFuture, task);
+    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable runnable, long initialDelay, long delay, TimeUnit unit) {
+        ScheduledFuture<?> future = SCHEDULED_THREAD_POOL_EXECUTOR.scheduleWithFixedDelay(runnable, initialDelay, delay, unit);
+        return ScheduledFutureHandler.getProxyObject(future, runnable);
     }
 
     /**
@@ -195,24 +181,39 @@ public final class AsyncTaskExecutor {
         public static final String METHOD_NAME_CANCEL = "cancel";
         //目标类，被代理对象
         private final ScheduledFuture<?> target;
-        private final Task task;
+        private final Runnable task;
 
-        private ScheduledFutureHandler(ScheduledFuture<?> target, Task task) {
+        private ScheduledFutureHandler(ScheduledFuture<?> target, Runnable task) {
             this.target = target;
             this.task = task;
         }
 
+        private String convert(Object[] args) {
+            if (null == args) {
+                return null;
+            } else if (0 == args.length) {
+                return "";
+            } else {
+                StringBuilder buf = new StringBuilder();
+                for (Object arg : args) {
+                    buf.append(arg).append(",");
+                }
+                buf.deleteCharAt(buf.length() - 1);
+                return buf.toString();
+            }
+        }
+
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            Object invoke = method.invoke(target, args);
             if (TextUtils.equals(method.getName(), METHOD_NAME_CANCEL)) {
-                Log.d(TAG, "ScheduledFuture is canceled: task=" + task.threadNameSuffix);
-                TaskPool.INSTANCE.free(task);
+                Log.d(TAG, "ScheduledFuture.cancel(" + convert(args) + ") : task=" + task.getClass().getName() + " : ret=" + invoke);
             }
-            return method.invoke(target, args);
+            return invoke;
         }
 
         //生成代理类
-        static public ScheduledFuture<?> getProxyObject(ScheduledFuture<?> target, Task task) {
+        static public ScheduledFuture<?> getProxyObject(ScheduledFuture<?> target, Runnable task) {
             ScheduledFutureHandler handler = new ScheduledFutureHandler(target, task);
 
             // 第一个参数，是类的加载器

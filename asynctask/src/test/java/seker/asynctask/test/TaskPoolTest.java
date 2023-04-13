@@ -22,27 +22,30 @@ public class TaskPoolTest {
 
     @Test
     void test1() {
-        ScheduledFuture<?> scheduledFuture = null;
-        for (int i = 0; i < 1000; i += 5) {
-            scheduledFuture = AsyncTaskExecutor.getInstance().scheduleAtFixedRate(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i = 0; i < 1000; i += 1) {
-                        AsyncTaskExecutor.getInstance().executeDelay(new Runnable() {
-                            @Override
-                            public void run() {
-//                            Log.d("");
-                            }
-                        }, "sss", i, TimeUnit.MILLISECONDS);
-                    }
+        ScheduledFuture<?> scheduledFuture = AsyncTaskExecutor.getInstance().executeDelay(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("executeDelay: 1+2 start.");
+                try {
+                    Thread.sleep(TimeUnit.SECONDS.toMillis(2));
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-            }, "aaa", i, 5, TimeUnit.MILLISECONDS);
-        }
+                Log.d("executeDelay: 1+2 end.");
+            }
+        }, 1, TimeUnit.SECONDS);
+
         try {
-            scheduledFuture.get(1, TimeUnit.MINUTES);
+            Thread.sleep(TimeUnit.SECONDS.toMillis(2));
+            scheduledFuture.cancel(true);
         } catch (Throwable e) {
-//            Log.e(e);
-//            throw new RuntimeException(e);
+            Log.e(e);
+        }
+
+        try {
+            Thread.sleep(TimeUnit.SECONDS.toMillis(2));
+        } catch (Throwable e) {
+            Log.w(e);
         }
     }
 }
