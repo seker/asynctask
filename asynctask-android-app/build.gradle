@@ -43,10 +43,12 @@ dependencies {
     implementation project(":asynctask-android")
 
     implementation "com.google.android.material:material:${versions.google_material}"
+
+    implementation "androidx.core:core-ktx:${versions.androidx_core}"
     implementation "androidx.appcompat:appcompat:${versions.androidx_appcompat}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.androidx_constraintlayout}"
-    implementation "androidx.navigation:navigation-fragment-ktx:${versions.androidx_navigation_ktx}"
-    implementation "androidx.navigation:navigation-ui-ktx:${versions.androidx_navigation_ktx}"
+    implementation "androidx.navigation:navigation-fragment-ktx:${versions.androidx_navigation}"
+    implementation "androidx.navigation:navigation-ui-ktx:${versions.androidx_navigation}"
 
     testImplementation "junit:junit:${versions.junit}"
     androidTestImplementation "androidx.test.ext:junit:${versions.androidx_junit}"
