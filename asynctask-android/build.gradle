@@ -8,11 +8,12 @@ archivesBaseName = "asynctask-android"
 version = '1.0.1'
 
 android {
-    compileSdk 33
+    compileSdkVersion versions.compileSdkVersion
+    buildToolsVersion versions.buildToolsVersion
 
     defaultConfig {
-        minSdk 21
-        targetSdk 33
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         consumerProguardFiles "consumer-rules.pro"
@@ -40,10 +41,9 @@ android {
 dependencies {
 //    api project(":asynctask")
 
-    testImplementation 'junit:junit:4.13.2'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    testImplementation "junit:junit:${versions.junit}"
+    androidTestImplementation "androidx.test.ext:junit:${versions.androidx_junit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.androidx_espresso_core}"
 }
 
 apply from: 'publish.gradle'
