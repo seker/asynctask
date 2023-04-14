@@ -64,14 +64,13 @@ public abstract class TaskQueue implements Comparator<Task> {
      * Add a task into the PriorityTaskQueue.
      *
      * @param runnable         The Task.
-     * @param threadNameSuffix ThreadName.
      */
-    public final void addTask(Runnable runnable, String threadNameSuffix) {
-        addTask(TaskPool.INSTANCE.obtain(runnable, threadNameSuffix, 0));
+    public final void addTask(Runnable runnable) {
+        addTask(TaskPool.INSTANCE.obtain(runnable, 0));
     }
 
-    public final void addTask(Runnable runnable, String threadNameSuffix, int priority) {
-        addTask(TaskPool.INSTANCE.obtain(runnable, threadNameSuffix, priority));
+    public final void addTask(Runnable runnable, int priority) {
+        addTask(TaskPool.INSTANCE.obtain(runnable, priority));
     }
 
     void addTask(final Task task) {

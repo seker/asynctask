@@ -39,11 +39,11 @@ final class TaskPool extends Pool<Task> {
         throw new RuntimeException("call obtain(Runnable, String) method instead.");
     }
 
-    public Task obtain(Runnable runnable, String threadNameSuffix) {
-        return obtain(runnable, threadNameSuffix, 0);
+    public Task obtain(Runnable runnable) {
+        return obtain(runnable, 0);
     }
 
-    public Task obtain(Runnable runnable, final String threadNameSuffix, int priority) {
+    public Task obtain(Runnable runnable, int priority) {
         Task task;
         synchronized (freeObjects) {
             if (freeObjects.isEmpty()) {
@@ -52,7 +52,7 @@ final class TaskPool extends Pool<Task> {
                 task = freeObjects.pop();
             }
         }
-        task.init(runnable, threadNameSuffix, priority);
+        task.init(runnable, priority);
         return task;
     }
 

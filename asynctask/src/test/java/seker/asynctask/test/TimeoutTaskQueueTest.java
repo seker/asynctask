@@ -26,10 +26,10 @@ public class TimeoutTaskQueueTest {
         TimeoutTaskQueue timeoutTaskQueue = new TimeoutTaskQueue("testTimeoutTaskQueue", true);
         timeoutTaskQueue.setTimeout(TimeUnit.SECONDS.toMillis(2));
 
-        timeoutTaskQueue.addTask(new SleepRunnable(1), "test1");
-        timeoutTaskQueue.addTask(new SleepRunnable(2), "test2");
-        timeoutTaskQueue.addTask(new SleepRunnable(3), "test3");
-        timeoutTaskQueue.addTask(new SleepRunnable(4), "test4");
+        timeoutTaskQueue.addTask(new SleepRunnable("1", 1));
+        timeoutTaskQueue.addTask(new SleepRunnable("2", 2));
+        timeoutTaskQueue.addTask(new SleepRunnable("3", 3));
+        timeoutTaskQueue.addTask(new SleepRunnable("4", 4));
 
         timeoutTaskQueue.start();
 

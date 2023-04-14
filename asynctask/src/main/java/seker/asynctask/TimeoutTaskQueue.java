@@ -35,7 +35,7 @@ public class TimeoutTaskQueue extends ActiveTaskQueue {
         synchronized (TimeoutTaskQueue.class) {
             if (null != timeoutMonitorFuture) {
                 timeoutMonitorFuture.cancel(true);
-                 Log.d(TAG, "not time out : [" + timeoutMonitorTask.targetTask.threadNameSuffix + "], cancel the TimeoutMonitorTask.");
+                 Log.d(TAG, "not time out : [" + timeoutMonitorTask.targetTask.runnable + "], cancel the TimeoutMonitorTask.");
             }
             timeoutMonitorTask.setTargetTask(runnable);
             timeoutMonitorFuture = AsyncTaskExecutor.SCHEDULED_THREAD_POOL_EXECUTOR.schedule(
@@ -58,7 +58,7 @@ public class TimeoutTaskQueue extends ActiveTaskQueue {
                 if (runningTask == targetTask) {
                     runningTask.taskQueue = null;
                     timeoutMonitorFuture = null;
-                    Log.w(TAG, "time out : [" + targetTask.threadNameSuffix + "], force to call TaskQueue.next()");
+                    Log.w(TAG, "time out : [" + targetTask.runnable + "], force to call TaskQueue.next()");
                     executeNext();
                 }
             }

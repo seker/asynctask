@@ -2,7 +2,6 @@ package seker.asynctask;
 
 import seker.asynctask.logger.Log;
 import seker.asynctask.pool.Pool;
-import seker.asynctask.text.TextUtils;
 
 /**
  * @author xinjian
@@ -22,12 +21,7 @@ final class Task implements Runnable, Pool.Poolable {
     /**
      * 真正的执行对象
      */
-    private Runnable runnable;
-
-    /**
-     * 线程名后缀，由外部传入，方便排查问题用
-     */
-    String threadNameSuffix;
+    Runnable runnable;
 
     /**
      * 用于排序
@@ -46,9 +40,8 @@ final class Task implements Runnable, Pool.Poolable {
      */
     long offeredTime = 0;
 
-    void init(Runnable runnable, String threadNameSuffix, int priority) {
+    void init(Runnable runnable, int priority) {
         this.runnable = runnable;
-        this.threadNameSuffix = threadNameSuffix;
         this.priority = priority;
 
         taskQueue = null;
@@ -57,17 +50,11 @@ final class Task implements Runnable, Pool.Poolable {
 
     @Override
     public void reset() {
-        init(null, null, 0);
+        init(null, 0);
     }
 
     @Override
     public void run() {
-        final Thread currentThread = Thread.currentThread();
-        final String threadNamePrefix = currentThread.getName();
-        final boolean suffix = !TextUtils.isEmpty(threadNameSuffix);
-        if (suffix) {
-            currentThread.setName(threadNamePrefix + threadNameSuffix);
-        }
         long start = System.currentTimeMillis();
         try {
             if (null == runnable) {
@@ -80,11 +67,7 @@ final class Task implements Runnable, Pool.Poolable {
         } finally {
             long cost = System.currentTimeMillis() - start;
             if (cost >= LONG_TIME_COST_WARN) {
-                Log.w(TAG, "[" + taskQueue + "] Task(" + threadNameSuffix + ") cost " + cost + " ms.");
-            }
-
-            if (suffix) {
-                currentThread.setName(threadNamePrefix);
+                Log.w(TAG, "[" + taskQueue + "] Task(" + runnable + ") cost " + cost + " ms.");
             }
 
             if (taskQueue != null) {

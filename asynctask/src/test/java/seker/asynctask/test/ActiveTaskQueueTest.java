@@ -21,14 +21,17 @@ public class ActiveTaskQueueTest {
         Log.setLogger(new ConsoleLogger());
     }
 
+    /**
+     * priority=true, 执行顺序：4->3->2->1
+     */
     @Test
     public void test() {
         ActiveTaskQueue activeTaskQueue = new ActiveTaskQueue("testActiveTaskQueue", true);
 
-        activeTaskQueue.addTask(new SleepRunnable(1), "test1", 1);
-        activeTaskQueue.addTask(new SleepRunnable(1), "test2", 2);
-        activeTaskQueue.addTask(new SleepRunnable(1), "test3", 3);
-        activeTaskQueue.addTask(new SleepRunnable(1), "test4", 4);
+        activeTaskQueue.addTask(new SleepRunnable("1", 1), 1);
+        activeTaskQueue.addTask(new SleepRunnable("2", 1), 2);
+        activeTaskQueue.addTask(new SleepRunnable("3", 1), 3);
+        activeTaskQueue.addTask(new SleepRunnable("4", 1), 4);
 
         activeTaskQueue.start();
 
@@ -40,14 +43,17 @@ public class ActiveTaskQueueTest {
         activeTaskQueue.stop();
     }
 
+    /**
+     * priority=true, 执行顺序：1->2->3->4
+     */
     @Test
     public void test1() {
         ActiveTaskQueue activeTaskQueue = new ActiveTaskQueue("testActiveTaskQueue", true);
 
-        activeTaskQueue.addTask(new SleepRunnable(1), "test1");
-        activeTaskQueue.addTask(new SleepRunnable(1), "test2");
-        activeTaskQueue.addTask(new SleepRunnable(1), "test3");
-        activeTaskQueue.addTask(new SleepRunnable(1), "test4");
+        activeTaskQueue.addTask(new SleepRunnable("1", 1));
+        activeTaskQueue.addTask(new SleepRunnable("2", 1));
+        activeTaskQueue.addTask(new SleepRunnable("3", 1));
+        activeTaskQueue.addTask(new SleepRunnable("4", 1));
 
         activeTaskQueue.start();
 
@@ -59,14 +65,17 @@ public class ActiveTaskQueueTest {
         activeTaskQueue.stop();
     }
 
+    /**
+     * priority=false, 执行顺序：1->2->3->4
+     */
     @Test
     public void test2() {
         ActiveTaskQueue activeTaskQueue = new ActiveTaskQueue("testActiveTaskQueue", false);
 
-        activeTaskQueue.addTask(new SleepRunnable(1), "test1", 1);
-        activeTaskQueue.addTask(new SleepRunnable(1), "test2", 2);
-        activeTaskQueue.addTask(new SleepRunnable(1), "test3", 3);
-        activeTaskQueue.addTask(new SleepRunnable(1), "test4", 4);
+        activeTaskQueue.addTask(new SleepRunnable("1", 1), 1);
+        activeTaskQueue.addTask(new SleepRunnable("2", 1), 2);
+        activeTaskQueue.addTask(new SleepRunnable("3", 1), 3);
+        activeTaskQueue.addTask(new SleepRunnable("4", 1), 4);
 
         activeTaskQueue.start();
 

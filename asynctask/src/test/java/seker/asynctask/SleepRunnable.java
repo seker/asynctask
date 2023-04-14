@@ -10,8 +10,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class SleepRunnable implements Runnable {
     private final long sleep;
+    private final String name;
 
-    public SleepRunnable(long sleep) {
+    public SleepRunnable(String name, long sleep) {
+        this.name = name;
         this.sleep = sleep;
     }
 
@@ -22,5 +24,10 @@ public class SleepRunnable implements Runnable {
         } catch (InterruptedException e) {
             Log.w(e);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SleepRunnable(" + name + ", " + sleep + ")";
     }
 }

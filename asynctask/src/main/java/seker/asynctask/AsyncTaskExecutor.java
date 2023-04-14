@@ -81,30 +81,27 @@ public final class AsyncTaskExecutor {
 
     /**
      */
-    public void executeSerially(Runnable runnable, String threadName) {
-        executeSerially(ACTIVE_TASK_QUEUE, runnable, threadName, 0);
+    public void executeSerially(Runnable runnable) {
+        executeSerially(ACTIVE_TASK_QUEUE, runnable, 0);
     }
 
     /**
      */
-    public void executeSerially(Runnable runnable, String threadName, int priority) {
-        executeSerially(ACTIVE_TASK_QUEUE, runnable, threadName, priority);
+    public void executeSerially(Runnable runnable, int priority) {
+        executeSerially(ACTIVE_TASK_QUEUE, runnable, priority);
     }
 
     /**
      */
-    public void executeSerially(String taskQueue, Runnable runnable, String threadName) {
-        executeSerially(taskQueue, runnable, threadName, 0);
+    public void executeSerially(String taskQueue, Runnable runnable) {
+        executeSerially(taskQueue, runnable, 0);
     }
 
     /**
      */
-    public void executeSerially(String taskQueue, Runnable runnable, String threadName, int priority) {
-        if (TextUtils.isEmpty(threadName)) {
-            throw new IllegalArgumentException("The parameter 'threadName' can't be empty.");
-        }
+    public void executeSerially(String taskQueue, Runnable runnable, int priority) {
         if (TextUtils.isEmpty(taskQueue) || TextUtils.equals(ACTIVE_TASK_QUEUE, taskQueue)) {
-            activeTaskQueue.addTask(runnable, threadName, priority);
+            activeTaskQueue.addTask(runnable, priority);
         } else {
             ActiveTaskQueue queue = activeTaskQueues.get(taskQueue);
             if (null == queue) {
@@ -112,17 +109,14 @@ public final class AsyncTaskExecutor {
                 activeTaskQueues.put(taskQueue, queue);
                 queue.running = true;
             }
-            queue.addTask(runnable, threadName, priority);
+            queue.addTask(runnable, priority);
         }
     }
 
     /**
      */
-    public void execute(Runnable runnable, String threadName) {
-        if (TextUtils.isEmpty(threadName)) {
-            throw new IllegalArgumentException("The parameter 'threadName' can't be empty.");
-        }
-        Task task = TaskPool.INSTANCE.obtain(runnable, threadName);
+    public void execute(Runnable runnable) {
+        Task task = TaskPool.INSTANCE.obtain(runnable);
         THREAD_POOL_EXECUTOR.execute(task);
     }
 
@@ -164,7 +158,7 @@ public final class AsyncTaskExecutor {
             if (null == runnable) {
                 throw new IllegalArgumentException("null == runnable");
             }
-            String name = "AsyTsk#" + counter.incrementAndGet() + "_";
+            String name = "AsyTsk#" + counter.incrementAndGet();
             Thread thread = new Thread(runnable, name);
             thread.setPriority(Thread.MAX_PRIORITY);
             return thread;

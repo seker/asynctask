@@ -23,10 +23,10 @@ public class AsyncTaskExecutorTest {
     @Test
     void test1() {
         AsyncTaskExecutor asyncTaskExecutor = AsyncTaskExecutor.getInstance();
-        asyncTaskExecutor.execute(()-> Log.d("run in runnable test1"), "test1");
-        asyncTaskExecutor.execute(()-> Log.d("run in runnable test2"), "test2");
-        asyncTaskExecutor.execute(()-> Log.d("run in runnable test3"), "test3");
-        asyncTaskExecutor.execute(()-> Log.d("run in runnable test4"), "test4");
+        asyncTaskExecutor.execute(()-> Log.d("run in runnable test1"));
+        asyncTaskExecutor.execute(()-> Log.d("run in runnable test2"));
+        asyncTaskExecutor.execute(()-> Log.d("run in runnable test3"));
+        asyncTaskExecutor.execute(()-> Log.d("run in runnable test4"));
 
         try {
             Thread.sleep(TimeUnit.SECONDS.toMillis(1));
@@ -42,10 +42,10 @@ public class AsyncTaskExecutorTest {
     @Test
     void test2() {
         AsyncTaskExecutor asyncTaskExecutor = AsyncTaskExecutor.getInstance();
-        asyncTaskExecutor.executeSerially(new SleepRunnable(1), "test1", 1);
-        asyncTaskExecutor.executeSerially(new SleepRunnable(1), "test2", 2);
-        asyncTaskExecutor.executeSerially(new SleepRunnable(1), "test3", 3);
-        asyncTaskExecutor.executeSerially(new SleepRunnable(1), "test4", 4);
+        asyncTaskExecutor.executeSerially(new SleepRunnable("1", 1), 1);
+        asyncTaskExecutor.executeSerially(new SleepRunnable("2", 1), 2);
+        asyncTaskExecutor.executeSerially(new SleepRunnable("3", 1), 3);
+        asyncTaskExecutor.executeSerially(new SleepRunnable("4", 1), 4);
 
         try {
             Thread.sleep(TimeUnit.SECONDS.toMillis(5));
@@ -57,10 +57,10 @@ public class AsyncTaskExecutorTest {
     @Test
     void test3() {
         AsyncTaskExecutor asyncTaskExecutor = AsyncTaskExecutor.getInstance();
-        asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test1"), "test1");
-        asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test2"), "test2");
-        asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test3"), "test3");
-        asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test4"), "test4");
+        asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test1"));
+        asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test2"));
+        asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test3"));
+        asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test4"));
         try {
             Thread.sleep(TimeUnit.SECONDS.toMillis(1));
         } catch (Throwable e) {
