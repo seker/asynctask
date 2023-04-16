@@ -36,7 +36,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = 'asynctask_root'
+rootProject.name = 'asynctask-root'
 //include ':asynctask'
 include ':asynctask-android'
 include ':asynctask-android-app'
