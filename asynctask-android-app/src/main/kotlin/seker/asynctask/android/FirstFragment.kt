@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import seker.asynctask.android.R
-import seker.asynctask.android.databinding.FragmentFirstBinding
+import seker.asynctask.android.app.R
+import seker.asynctask.android.app.databinding.FragmentFirstBinding
 
 import seker.asynctask.AsyncTaskExecutor
 import seker.asynctask.logger.Log

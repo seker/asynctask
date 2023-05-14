@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'seker.asynctask.android'
+    namespace 'seker.asynctask.android.app'
 
     compileSdkVersion versions.compileSdkVersion
     buildToolsVersion versions.buildToolsVersion
@@ -16,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        applicationId "seker.asynctask.android"
+        applicationId "seker.asynctask.android.app"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }

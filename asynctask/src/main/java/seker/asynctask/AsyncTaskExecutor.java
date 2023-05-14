@@ -33,7 +33,7 @@ public final class AsyncTaskExecutor {
 
     /**
      */
-    static final ScheduledThreadPoolExecutor SCHEDULED_THREAD_POOL_EXECUTOR = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(CORE_POOL_SIZE, ASYNC_THREAD_FACTORY);
+    public static final ScheduledThreadPoolExecutor SCHEDULED_THREAD_POOL_EXECUTOR = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(CORE_POOL_SIZE, ASYNC_THREAD_FACTORY);
     static {
         SCHEDULED_THREAD_POOL_EXECUTOR.setMaximumPoolSize(MAXIMUM_POOL_SIZE);
         SCHEDULED_THREAD_POOL_EXECUTOR.setKeepAliveTime(60L, TimeUnit.SECONDS);
@@ -42,7 +42,7 @@ public final class AsyncTaskExecutor {
     }
     /**
      */
-    static final ThreadPoolExecutor THREAD_POOL_EXECUTOR = (ThreadPoolExecutor) Executors.newCachedThreadPool(ASYNC_THREAD_FACTORY);
+    public static final ThreadPoolExecutor THREAD_POOL_EXECUTOR = (ThreadPoolExecutor) Executors.newCachedThreadPool(ASYNC_THREAD_FACTORY);
     static {
         THREAD_POOL_EXECUTOR.setCorePoolSize(CORE_POOL_SIZE);
         THREAD_POOL_EXECUTOR.setMaximumPoolSize(MAXIMUM_POOL_SIZE);

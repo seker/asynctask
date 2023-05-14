@@ -9,7 +9,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import seker.asynctask.android.databinding.ActivityMainBinding
+import seker.asynctask.android.app.databinding.ActivityMainBinding
+import seker.asynctask.android.app.R
 import seker.asynctask.android.logger.AndroidLogger
 import seker.asynctask.logger.Log
 
