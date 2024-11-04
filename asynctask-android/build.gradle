@@ -44,7 +44,7 @@ dependencies {
 
     testImplementation "junit:junit:${versions.junit}"
     androidTestImplementation "androidx.test.ext:junit:${versions.androidx_junit}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.androidx_espresso_core}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.espresso}"
 }
 
 apply from: 'publish.gradle'
