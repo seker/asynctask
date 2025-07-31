@@ -1,7 +1,7 @@
 package seker.asynctask.test;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import seker.asynctask.ActiveTaskQueue;
 import seker.asynctask.ConsoleLogger;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ActiveTaskQueueTest {
 
-    @BeforeAll
+    @BeforeClass
     public static void init() {
         Log.setLogger(new ConsoleLogger());
     }

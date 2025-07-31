@@ -29,7 +29,7 @@ public class ConsoleLogger extends Logger {
                 .append("][")
                 .append(tag)
                 .append("] : ");
-        if (null != msg && msg.length() > 0) {
+        if (null != msg && !msg.isEmpty()) {
             buf.append(msg);
         }
 

@@ -1,7 +1,7 @@
 package seker.asynctask.test;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import seker.asynctask.ConsoleLogger;
 import seker.asynctask.logger.Log;
@@ -15,7 +15,7 @@ import java.util.concurrent.PriorityBlockingQueue;
  */
 public class PriorityBlockingQueueTest {
 
-    @BeforeAll
+    @BeforeClass
     public static void init() {
         Log.setLogger(new ConsoleLogger());
     }
@@ -58,7 +58,7 @@ public class PriorityBlockingQueueTest {
     private void dumpPriorityBlockingQueue(PriorityBlockingQueue<Integer> priorityBlockingQueue) {
         StringBuilder buf = new StringBuilder();
         while (!priorityBlockingQueue.isEmpty()) {
-            if (0 == buf.length()) {
+            if (buf.isEmpty()) {
                 buf.append(priorityBlockingQueue.poll());
             } else {
                 buf.append(",").append(priorityBlockingQueue.poll());

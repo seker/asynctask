@@ -1,7 +1,7 @@
 package seker.asynctask.test;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,13 +15,13 @@ import seker.asynctask.logger.Log;
  */
 public class AsyncTaskExecutorTest {
 
-    @BeforeAll
+    @BeforeClass
     public static void init() {
         Log.setLogger(new ConsoleLogger());
     }
 
     @Test
-    void test1() {
+    public void test1() {
         AsyncTaskExecutor asyncTaskExecutor = AsyncTaskExecutor.getInstance();
         asyncTaskExecutor.execute(()-> Log.d("run in runnable test1"));
         asyncTaskExecutor.execute(()-> Log.d("run in runnable test2"));
@@ -40,7 +40,7 @@ public class AsyncTaskExecutorTest {
      * 因为AsyncTaskExecutor.executeSerially()，它里面的ActiveTaskQueue默认是running的
      */
     @Test
-    void test2() {
+    public void test2() {
         AsyncTaskExecutor asyncTaskExecutor = AsyncTaskExecutor.getInstance();
         asyncTaskExecutor.executeSerially(new SleepRunnable("1", 1), 1);
         asyncTaskExecutor.executeSerially(new SleepRunnable("2", 1), 2);
@@ -55,7 +55,7 @@ public class AsyncTaskExecutorTest {
     }
 
     @Test
-    void test3() {
+    public void test3() {
         AsyncTaskExecutor asyncTaskExecutor = AsyncTaskExecutor.getInstance();
         asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test1"));
         asyncTaskExecutor.executeSerially("framework", ()-> Log.d("run in runnable test2"));

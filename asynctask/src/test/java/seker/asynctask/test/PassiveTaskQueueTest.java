@@ -1,7 +1,7 @@
 package seker.asynctask.test;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import seker.asynctask.ConsoleLogger;
 import seker.asynctask.PassiveTaskQueue;
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class PassiveTaskQueueTest {
 
-    @BeforeAll
+    @BeforeClass
     public static void init() {
         Log.setLogger(new ConsoleLogger());
     }
@@ -25,7 +25,7 @@ public class PassiveTaskQueueTest {
      * 它只能保证Task的被执行的起始时间是线性的，但并不能保证：前一个Task完成后，才执行下一个Task
      */
     @Test
-    void test1() {
+    public void test1() {
         PassiveTaskQueue passiveTaskQueue = new PassiveTaskQueue("testPassiveTaskQueue", false);
 
 //        passiveTaskQueue.executeNext();
@@ -48,7 +48,7 @@ public class PassiveTaskQueueTest {
     }
 
     @Test
-    void test2() {
+    public void test2() {
         PassiveTaskQueue passiveTaskQueue = new PassiveTaskQueue("testPassiveTaskQueue", false);
 
 //        passiveTaskQueue.executeNext();

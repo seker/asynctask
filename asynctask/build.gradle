@@ -4,8 +4,10 @@ plugins {
 apply from: 'publish.gradle'
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${versions.junit_jupiter}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${versions.junit_jupiter}"
+    testImplementation libs.junit
+
+//    testImplementation libs.junit.jupiter.api
+//    testRuntimeOnly libs.junit.jupiter.engine
 }
 
 test {
@@ -13,6 +15,6 @@ test {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_21
+    targetCompatibility JavaVersion.VERSION_21
 }

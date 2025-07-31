@@ -3,7 +3,7 @@
 // https://www.jianshu.com/p/fa58b51022fe
 
 //apply plugin: 'java-library'
-apply plugin: 'maven-publish'
+apply plugin: libs.plugins.maven.publish.get().pluginId
 //apply plugin: 'signing'
 
 Properties properties = new Properties()
@@ -41,9 +41,12 @@ publishing {
             artifact source: "build/libs/${project.name}-${project.version}.jar", classifier: "sources"
             pom {
                 name = 'asynctask-android'
+                groupId = "${project.group}"
+                artifactId = 'asynctask-android'
+                version = "${project.version}"
+                packaging = 'aar'
                 description = 'async task executor for android'
                 url = 'https://github.com/seker/asynctask'
-                packaging = 'aar'
 
                 withXml {
                     def dependenciesNode = asNode().appendNode("dependencies")

@@ -11,14 +11,13 @@ publishing {
             artifact source: "build/libs/${project.name}-${version}.jar"
             pom.withXml{
                 def dependenciesNode = asNode().appendNode("dependencies")
-                configurations.implementation.allDependencies.forEach(){
-                    Dependency dependency ->
-                        if (dependency.version != "unspecified" && dependency.name != "unspecified"){
-                            def dependencyNode = dependenciesNode.appendNode('dependency')
-                            dependencyNode.appendNode('groupId', dependency.group)
-                            dependencyNode.appendNode('artifactId', dependency.name)
-                            dependencyNode.appendNode('version', dependency.version)
-                        }
+                configurations.implementation.allDependencies.forEach() { Dependency dependency ->
+                    if (dependency.version != "unspecified" && dependency.name != "unspecified"){
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dependency.group)
+                        dependencyNode.appendNode('artifactId', dependency.name)
+                        dependencyNode.appendNode('version', dependency.version)
+                    }
                 }
             }
         }
@@ -34,7 +33,7 @@ publishing {
 }
 
 //编译发布到maven
-task deploy{
+tasks.register('deploy') {
     dependsOn tasks.clean
     dependsOn tasks.build
     dependsOn tasks.publish

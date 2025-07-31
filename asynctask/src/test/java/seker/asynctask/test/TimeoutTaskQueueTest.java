@@ -1,7 +1,7 @@
 package seker.asynctask.test;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import seker.asynctask.ConsoleLogger;
 import seker.asynctask.SleepRunnable;
@@ -16,25 +16,27 @@ import java.util.concurrent.TimeUnit;
  */
 public class TimeoutTaskQueueTest {
 
-    @BeforeAll
+    @BeforeClass
     public static void init() {
         Log.setLogger(new ConsoleLogger());
     }
 
     @Test
-    void test1() {
+    public void test1() {
         TimeoutTaskQueue timeoutTaskQueue = new TimeoutTaskQueue("testTimeoutTaskQueue", true);
         timeoutTaskQueue.setTimeout(TimeUnit.SECONDS.toMillis(2));
 
         timeoutTaskQueue.addTask(new SleepRunnable("1", 1));
         timeoutTaskQueue.addTask(new SleepRunnable("2", 2));
         timeoutTaskQueue.addTask(new SleepRunnable("3", 3));
-        timeoutTaskQueue.addTask(new SleepRunnable("4", 4));
+        timeoutTaskQueue.addTask(new SleepRunnable("4", 3));
+        timeoutTaskQueue.addTask(new SleepRunnable("5", 3));
+        timeoutTaskQueue.addTask(new SleepRunnable("6", 3));
 
         timeoutTaskQueue.start();
 
         try {
-            Thread.sleep(TimeUnit.SECONDS.toMillis(10));
+            Thread.sleep(TimeUnit.SECONDS.toMillis(15));
         } catch (Throwable e) {
             Log.w(e);
         }
