@@ -1,7 +1,7 @@
 #./gradlew :asynctask:clean
 #./gradlew :asynctask:assemble
-#./gradlew :asynctask:publishSekerPublicationToMavenLocal
+#./gradlew :asynctask:publishAsynctaskPublicationToMavenLocal
 
 ./gradlew :asynctask-android:clean
 ./gradlew :asynctask-android:assemble
-./gradlew :asynctask-android:publishSekerPublicationToMavenLocal
+./gradlew :asynctask-android:publishAsynctaskPublicationToMavenLocal

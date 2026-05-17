@@ -1,5 +1,5 @@
 plugins {
     // https://mvnrepository.com/artifact/com.android.application/com.android.application.gradle.plugin
-    alias libs.plugins.androidApplication apply false
-    alias libs.plugins.androidLibrary apply false
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.androidLibrary) apply false
 }

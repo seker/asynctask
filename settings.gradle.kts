@@ -11,16 +11,17 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
         maven {
-            url 'https://maven.aliyun.com/repository/public/'   // central仓和jcenter仓的聚合仓
+            url = uri("https://maven.aliyun.com/repository/public/")
         }
         maven {
-            url 'https://maven.aliyun.com/repository/gradle-plugin'
+            url = uri("https://maven.aliyun.com/repository/gradle-plugin")
         }
         maven {
-            url 'https://maven.aliyun.com/repository/google'
+            url = uri("https://maven.aliyun.com/repository/google")
         }
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -34,21 +35,21 @@ dependencyResolutionManagement {
         }
         mavenCentral()
         maven {
-            url 'https://s01.oss.sonatype.org/content/repositories/releases/'
+            url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
         }
         maven {
-            url 'https://maven.aliyun.com/repository/public/'   // central仓和jcenter仓的聚合仓
+            url = uri("https://maven.aliyun.com/repository/public/")
         }
         maven {
-            url 'https://maven.aliyun.com/repository/gradle-plugin'
+            url = uri("https://maven.aliyun.com/repository/gradle-plugin")
         }
         maven {
-            url 'https://maven.aliyun.com/repository/google'
+            url = uri("https://maven.aliyun.com/repository/google")
         }
     }
 }
 
-rootProject.name = 'asynctask-root'
-//include ':asynctask'
-include ':asynctask-android'
-include ':asynctask-android-app'
+rootProject.name = "asynctask-root"
+//include(":asynctask")
+include(":asynctask-android")
+include(":asynctask-android-app")
