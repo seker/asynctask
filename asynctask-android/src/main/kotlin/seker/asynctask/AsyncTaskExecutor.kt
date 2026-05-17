@@ -1,6 +1,5 @@
 package seker.asynctask
 
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.MessageQueue
@@ -30,11 +29,5 @@ fun AsyncTaskExecutor.runOnMainThreadWhenIdle(runnable: Runnable) {
         false
     }
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        Looper.getMainLooper().queue.addIdleHandler(idleHandler)
-    } else {
-        mainHandler.postAtFrontOfQueue {
-            Looper.myQueue().addIdleHandler(idleHandler)
-        }
-    }
+    Looper.getMainLooper().queue.addIdleHandler(idleHandler)
 }

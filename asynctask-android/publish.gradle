@@ -3,7 +3,7 @@
 // https://www.jianshu.com/p/fa58b51022fe
 
 //apply plugin: 'java-library'
-apply plugin: libs.plugins.maven.publish.get().pluginId
+apply plugin: "maven-publish"
 //apply plugin: 'signing'
 
 Properties properties = new Properties()
